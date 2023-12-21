@@ -1,4 +1,4 @@
-![Tests](https://github.com/AkshaySiwal/Akshay_test/actions/workflows/python-app.yml/badge.svg)
+![Tests](https://github.com/AkshaySiwal/auto-scaler/actions/workflows/python-app.yml/badge.svg)
 # Target Based Auto Scaler
 To create a target based auto scaler, you specify a metric and targeted maximum and minimum metric values that represent the ideal average utilisation or throughput level for your application. Auto Scaler can then scale out your group (add more replicas) to handle peak traffic and scale in your group (run fewer replicas) to reduce costs during periods of low utilisation or throughput.
 
@@ -38,7 +38,7 @@ desired_replicas = ceil[current_replicas * (current_matric_value / desired_matri
     - [Retry with added randomness](#53-retry-with-added-randomness)
   - [Protection Againste Thundering Herd](#6-protection-against-thundering-herds)
 * [Force to Ignore CoolDown](#force-to-ignore-cooldown)
-* [Previous Test Builds](https://github.com/AkshaySiwal/Akshay_test/actions/)
+* [Previous Test Builds](https://github.com/AkshaySiwal/auto-scaler/actions/)
 * [To Do](#to-do)
 
 
@@ -46,7 +46,7 @@ desired_replicas = ceil[current_replicas * (current_matric_value / desired_matri
 ## Installation
 Clone this repository and install all the required packages as given below:
 ```bash
-git clone https://github.com/AkshaySiwal/Akshay_test.git
+git clone https://github.com/AkshaySiwal/auto-scaler.git
 pip install -r requirements.txt
 ```
 
