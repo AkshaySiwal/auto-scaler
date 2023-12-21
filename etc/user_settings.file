@@ -1,0 +1,29 @@
+target_avg_cpu_utilization_for_scale_out = 0.80 # Ranges 0-1.0
+target_avg_cpu_utilization_for_scale_in = 0.30 # Ranges 0-1.0
+autoscale_engine_runs_every = 10 # Seconds
+cool_down_time_seconds = 0 # Seconds
+cooldown_lock_file='.cooldown_time.lock'
+max_replicas=40 #System wide limit - 1000, if max_replicas is not defind
+min_replicas=5 #System wide limit - 0, if min_replicas is not defind
+log_file='app_scaler.log' # It will be created under ./log file by default, use setting name - log_dir to change defalt behaviour.
+debug_logs=True
+graph_kpi_period=10 # Seconds
+
+app_status_port=8123
+app_status_host='localhost'
+app_status_read_url='/app/status'
+app_replica_update_url='/app/replicas'
+read_metrics_key = 'cpu.highPriority'
+read_replicas_key = 'replicas'
+app_status_secure=False
+app_connection_timeout=10
+
+# To retry only when there is a server-side error (5XX), use [5]
+# If you want to trigger a retry on client-side errors (4XX) too, then use [5, 4]
+retry_on_http_codes = [ 5 ] 
+
+retry_on_connection_error = True # By default, the request itself tries three times, but if you still want to retry on connection errors, consider setting this parameter to true.
+retry_after_seconds = 2 # Time in seconds to try after a failure that is set for retry
+retry_exponentially = True # Good practice to avoid thundering herd, good for recently recovered services.
+retry_add_randomness = True # Retries exponentially with some added randomness. This is default
+api_retries_count = 3

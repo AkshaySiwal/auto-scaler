@@ -2,6 +2,8 @@
 __pycache__/
 *.py[cod]
 *$py.class
+**/.cooldown_time.lock
+etc/configs.file
 
 # C extensions
 *.so
