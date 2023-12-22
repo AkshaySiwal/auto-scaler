@@ -33,7 +33,7 @@ def _write_config(file, data):
                
 @lru_cache
 def get(name):
-    configs = _read_config('etc/configs.file')
+    configs = _read_config('etc/configs.cfg')
     return configs.get(name)
 
 def settings(sys_config, user_config=None):
@@ -43,7 +43,7 @@ def settings(sys_config, user_config=None):
         for key, value in user_config.items():
             configs[key] = value
     configs = _polish_values(configs)
-    _write_config('etc/configs.file', configs)
+    _write_config('etc/configs.cfg', configs)
     return configs
 
 def _polish_values(data):

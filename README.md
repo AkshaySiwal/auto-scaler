@@ -1,4 +1,4 @@
-![Tests](https://github.com/AkshaySiwal/Akshay_test/actions/workflows/python-app.yml/badge.svg)
+![Tests](https://github.com/AkshaySiwal/auto-scaler/actions/workflows/python-app.yml/badge.svg)
 # Target Based Auto Scaler
 To create a target based auto scaler, you specify a metric and targeted maximum and minimum metric values that represent the ideal average utilisation or throughput level for your application. Auto Scaler can then scale out your group (add more replicas) to handle peak traffic and scale in your group (run fewer replicas) to reduce costs during periods of low utilisation or throughput.
 
@@ -38,7 +38,7 @@ desired_replicas = ceil[current_replicas * (current_matric_value / desired_matri
     - [Retry with added randomness](#53-retry-with-added-randomness)
   - [Protection Againste Thundering Herd](#6-protection-against-thundering-herds)
 * [Force to Ignore CoolDown](#force-to-ignore-cooldown)
-* [Previous Test Builds](https://github.com/AkshaySiwal/Akshay_test/actions/)
+* [Previous Test Builds](https://github.com/AkshaySiwal/auto-scaler/actions/)
 * [To Do](#to-do)
 
 
@@ -46,7 +46,7 @@ desired_replicas = ceil[current_replicas * (current_matric_value / desired_matri
 ## Installation
 Clone this repository and install all the required packages as given below:
 ```bash
-git clone https://github.com/AkshaySiwal/Akshay_test.git
+git clone https://github.com/AkshaySiwal/auto-scaler.git
 pip install -r requirements.txt
 ```
 
@@ -60,17 +60,17 @@ modules/settings.py evaluates user-given configuration and system defaults and g
 #### 1.1. Effective Configurations Values
 Autoscaler uses `modules/settings.py` to evaluate user-given configuration and system defaults to generate effective configuration values.
 Autoscaler uses these configurations to generate effective configurations:
-- [User configuration](etc/user_settings.file)
-- [System configuration](etc/system_settings.file)
+- [User configuration](etc/user_settings.cfg)
+- [System configuration](etc/system_settings.cfg)
 
 #### 1.2. User configuration
-All [user configurations](etc/user_settings.file) are defined in `modules/user_settings.py`. If the user fails to provide any parameters in this file, it uses the system [default](etc/system_settings.file) settings.
+All [user configurations](etc/user_settings.cfg) are defined in `modules/user_settings.py`. If the user fails to provide any parameters in this file, it uses the system [default](etc/system_settings.cfg) settings.
 
 #### 1.3. System configuration
-All [system default configurations](etc/system_settings.file) are defined in `modules/system_settings.py`.
+All [system default configurations](etc/system_settings.cfg) are defined in `modules/system_settings.py`.
 
 #### 1.4. Important configuration settings
-There are no required configurations. If the user does not provide any value to the configuration settings, it will inherit system defaults. To override the system default, set these settings in the [user configuration file](etc/user_settings.file).
+There are no required configurations. If the user does not provide any value to the configuration settings, it will inherit system defaults. To override the system default, set these settings in the [user configuration file](etc/user_settings.cfg).
 ```bash
 
 # System Default values
@@ -218,7 +218,7 @@ Auto-scaler by default generally does not perform any scalling activity until th
 If you want to force Auto-scaler to ignore the cooldown period for some testing, then you can do so by deleting the cooldown lock file `.cooldown_time.lock`. Please note that it will only let Auto-scaler Ignore cool down once.
 
 ## Want to check what configuration values the auto-scaler has picked?
-When you start the auto-scaler, it dumps its effective configuration in file `etc/configs.file` to help you debug.
+When you start the auto-scaler, it dumps its effective configuration in file `etc/configs.cfg` to help you debug.
 
 ## Graph
 You can run [graph.py](graph.py) in a separate terminal to plot a graph to see how metrics behave with scaling activities.

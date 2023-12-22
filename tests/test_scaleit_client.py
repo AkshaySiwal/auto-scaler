@@ -8,7 +8,7 @@ import modules.scaleit_client as scaleit_client
 import modules.settings as settings
 from modules.logger import get_logger
 
-configs =  settings.settings(sys_config=parent_dir + '/etc/system_settings.file', user_config=parent_dir + '/etc/user_settings.file')
+configs =  settings.settings(sys_config=parent_dir + '/etc/system_settings.cfg', user_config=parent_dir + '/etc/user_settings.cfg')
 log =  get_logger(logger_name=__name__, settings=configs)
 configs['log'] = log
 

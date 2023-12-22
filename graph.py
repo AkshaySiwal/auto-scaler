@@ -6,7 +6,7 @@ from modules.logger import get_logger
 import modules.settings as settings
 
 
-configs =  settings.settings(sys_config='etc/system_settings.file', user_config='etc/user_settings.file')
+configs =  settings.settings(sys_config='etc/system_settings.cfg', user_config='etc/user_settings.cfg')
 graph_kpi_period = configs.get('graph_kpi_period')
 log =  get_logger(logger_name=__name__, settings=configs)
 configs['log'] = log

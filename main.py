@@ -7,7 +7,7 @@ import modules.settings as settings
 from modules.logger import get_logger
 
 
-configs =  settings.settings(sys_config='etc/system_settings.file', user_config='etc/user_settings.file')
+configs =  settings.settings(sys_config='etc/system_settings.cfg', user_config='etc/user_settings.cfg')
 autoscale_engine_runs_every = configs.get('autoscale_engine_runs_every')
 log =  get_logger(logger_name=__name__, settings=configs)
 configs['log'] = log
