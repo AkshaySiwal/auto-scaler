@@ -47,6 +47,7 @@ desired_replicas = ceil[current_replicas * (current_matric_value / desired_matri
 Clone this repository and install all the required packages as given below:
 ```bash
 git clone https://github.com/AkshaySiwal/auto-scaler.git
+cd auto-scaler/
 pip install -r requirements.txt
 ```
 
