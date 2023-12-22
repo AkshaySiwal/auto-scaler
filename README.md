@@ -228,5 +228,6 @@ You can run [graph.py](graph.py) in a separate terminal to plot a graph to see h
 ## To Do
 - Add a user configuration validator to verify the data-type of input configuration. However, code is designed in a way to adopt the best scenario in case the user provides the wrong input configuration, but it is good to have a configuration validator and have it run before actual logic starts.
 - Refactor code and remove unnecessary lines.
+- Add more test coverage
 - Add Graph from a seprate file to main.py to have real-time view.
 
