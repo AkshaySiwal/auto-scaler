@@ -30,16 +30,17 @@ desired_replicas = ceil[current_replicas * (current_matric_value / desired_matri
     - [Sample Logs How Auto-Scaler Avoid Flapping](#sample-logs)
   - [Min-Max Limits to Control your Budget](#3-min-max-limits-to-control-your-budget)
       - [Minimum Capacity](#31-minimum-capacity)
-      - [Maximum capacity](#32-maximum-capacity)
-  - [Auto Retries on API failures](#4-auto-retries-on-api-failures)
-  - [Multiple Retry stratigies](#5-multiple-retry-strategies)
-    - [Plain retry after a fixed interval](#51-plain-retry-after-a-fixed-interval)
-    - [Retry with exponetial back-offs](#52-retry-with-exponetial-back-offs)
-    - [Retry with added randomness](#53-retry-with-added-randomness)
+      - [Maximum Capacity](#32-maximum-capacity)
+  - [Auto Retries on API Failures](#4-auto-retries-on-api-failures)
+  - [Multiple Retry Stratigies](#5-multiple-retry-strategies)
+    - [Plain Retry after a Fixed Interval](#51-plain-retry-after-a-fixed-interval)
+    - [Retry with Exponetial Back-Offs](#52-retry-with-exponetial-back-offs)
+    - [Retry with Added Randomness](#53-retry-with-added-randomness)
   - [Protection Againste Thundering Herd](#6-protection-against-thundering-herds)
 * [Force to Ignore CoolDown](#force-to-ignore-cooldown)
 * [Previous Test Builds](https://github.com/AkshaySiwal/auto-scaler/actions/)
-* [Notes](#notes)
+* [See Runtime Values](#Want-to-check-what-configuration-values-the-auto-scaler-has-picked)
+* [Notes for Users](#notes-for-users)
 * [To Do](#to-do)
 
 
@@ -65,13 +66,13 @@ Autoscaler uses these configurations to generate effective configurations:
 - [User configuration](etc/user_settings.cfg)
 - [System configuration](etc/system_settings.cfg)
 
-#### 1.2. User configuration
+#### 1.2. User Configuration
 All [user configurations](etc/user_settings.cfg) are defined in `modules/user_settings.py`. If the user fails to provide any parameters in this file, it uses the system [default](etc/system_settings.cfg) settings.
 
-#### 1.3. System configuration
+#### 1.3. System Configuration
 All [system default configurations](etc/system_settings.cfg) are defined in `modules/system_settings.py`.
 
-#### 1.4. Important configuration settings
+#### 1.4. Important Configuration Settings
 There are no required configurations. If the user does not provide any value to the configuration settings, it will inherit system defaults. To override the system default, set these settings in the [user configuration file](etc/user_settings.cfg).
 ```bash
 
@@ -182,20 +183,20 @@ http://192.168.58.2:8123/app/replicas returned 204, Scaled to replicas: 12
 Next check will be after 1 seconds.
 ```
 
-### 3. Min-Max Limits to Control Your Budget
+### 3. Min-Max Limits to Control your Budget
 Scaling limits represent the minimum and maximum replica sizes that you want for your application. You set limits separately for the minimum and maximum size.
 
 The application's desired capacity can be resized to a number that's within the range of your minimum and maximum size limits. The desired capacity must be equal to or greater than the minimum group size and equal to or less than the maximum group size.
 
-#### 3.1. Minimum capacity
+#### 3.1. Minimum Capacity
 Represents the minimum replica size. Auto-scaler cannot decrease the application's desired capacity lower than the minimum capacity. Check `max_replicas` to cutomize it.
 If the user does not provide any value for `max_replicas` auto-sclaer will inharite the system default `1000`.
 
-#### 3.2. Maximum capacity
+#### 3.2. Maximum Capacity
 Represents the maximum replica size. Auto-scaler cannot increase the application's desired capacity higher than the maximum capacity. Check `min_replicas` to cutomize it.
 If the user does not provide any value for `min_replicas` Auto-sclaer will inharite the system default `0`.
 
-### 4. Auto-Retries on API failures
+### 4. Auto-Retries on API Failures
 Auto-scaler is configured to retry multiple times (can be configured with settings; default is `3`) on failure.
 By default, it retries only after server-side errors (5XX) and connection errors, but you can change this behaviour. Check `retry_on_http_codes`, `retry_on_connection_error` and `api_retries_count`.
 
@@ -223,14 +224,14 @@ Retries with exponential backoff with added randomness go easy on dependent serv
 Auto-scaler by default generally does not perform any scalling activity until the cooldown period has expired.
 If you want to force Auto-scaler to ignore the cooldown period for some testing, then you can do so by deleting the cooldown lock file `.cooldown_time.lock`. Please note that it will only let Auto-scaler Ignore cool down once.
 
-## Want to check what configuration values the auto-scaler has picked?
+## Want to Check what Configuration values the Auto-Scaler has picked?
 When you start the auto-scaler, it dumps its effective configuration in file `etc/configs.cfg` to help you debug.
 
 ## Graph
 You can run [graph.py](graph.py) in a separate terminal to plot a graph to see how metrics behave with scaling activities.
 ![graph](assets/graph.png)
 
-## Notes
+## Notes For Users
 - Avoid setting the `target_avg_cpu_utilization_for_scale_out` too high if your application takes a long time to start, as in this case the CPU is already high and might increase even further. Your users might notice some slowness until new replicas come live.
 - The cool-down period `cool_down_time_seconds` should be proportionate to the application start-up time to prevent the auto-scaler from scaling while replicas from previous scale-out operations are still in the startup phase.
 
