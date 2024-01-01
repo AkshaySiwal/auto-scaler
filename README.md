@@ -40,6 +40,7 @@ desired_replicas = ceil[current_replicas * (current_matric_value / desired_matri
 * [Force to Ignore CoolDown](#force-to-ignore-cooldown)
 * [Previous Test Builds](https://github.com/AkshaySiwal/auto-scaler/actions/)
 * [See Runtime Values](#Want-to-check-what-configuration-values-the-auto-scaler-has-picked)
+* [Graphs](#graphs)
 * [Notes for Users](#notes-for-users)
 * [To Do](#to-do)
 
@@ -227,7 +228,7 @@ If you want to force Auto-scaler to ignore the cooldown period for some testing,
 ## Want to Check what Configuration values the Auto-Scaler has picked?
 When you start the auto-scaler, it dumps its effective configuration in file `etc/configs.cfg` to help you debug.
 
-## Graph
+## Graphs
 You can run [graph.py](graph.py) in a separate terminal to plot a graph to see how metrics behave with scaling activities.
 ![graph](assets/graph.png)
 
