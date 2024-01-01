@@ -26,19 +26,20 @@ desired_replicas = ceil[current_replicas * (current_matric_value / desired_matri
   - [Cool-Down Period](#1-cool-down-period)
   - [Flapping Protection](#2-flapping-protection)
     - [Reasonsn Behind Flappling](#flapping-is-often-caused-by)
-    - [How Auto-Scaler Avoid Flapping](#how-auto-scaler-avoid-flapping )
+    - [How Auto-Scaler Avoid Flapping](#how-auto-scaler-avoids-flapping)
     - [Sample Logs How Auto-Scaler Avoid Flapping](#sample-logs)
   - [Min-Max Limits to Control your Budget](#3-min-max-limits-to-control-your-budget)
       - [Minimum Capacity](#31-minimum-capacity)
       - [Maximum capacity](#32-maximum-capacity)
   - [Auto Retries on API failures](#4-auto-retries-on-api-failures)
-  - [Multiple Retry stratigies](#5-multiple-retry-stratigies)
+  - [Multiple Retry stratigies](#5-multiple-retry-strategies)
     - [Plain retry after a fixed interval](#51-plain-retry-after-a-fixed-interval)
     - [Retry with exponetial back-offs](#52-retry-with-exponetial-back-offs)
     - [Retry with added randomness](#53-retry-with-added-randomness)
   - [Protection Againste Thundering Herd](#6-protection-against-thundering-herds)
 * [Force to Ignore CoolDown](#force-to-ignore-cooldown)
 * [Previous Test Builds](https://github.com/AkshaySiwal/auto-scaler/actions/)
+* [Notes](#notes)
 * [To Do](#to-do)
 
 
@@ -80,6 +81,8 @@ app_status_host='localhost'
 app_status_port=8123
 app_status_read_url='/app/status'
 app_replica_update_url='/app/replicas'
+read_metrics_key = 'cpu.highPriority'
+read_replicas_key = 'replicas'
 app_status_secure=False
 app_connection_timeout=10
 target_avg_cpu_utilization_for_scale_out = 0.80 # Ranges 0-1.0
@@ -103,6 +106,8 @@ The auto-scaler uses a cool-down period. This period is the amount of time to wa
 
 Suppose, for example, that a simple scaling policy for CPU utilisation recommends launching two replicas. Auto-Scaler launches two replicas and then pauses the scaling activities until the cooldown period ends. After the cooldown period ends, any scaling activities can resume. If CPU utilisation breaches the alarm-high threshold again, the auto-scaler scales out again, and the cooldown period takes effect again. However, if two replicas were enough to bring the metric value back down, the group would remain at its current size.
 See `cool_down_time_seconds` in the configurations.
+
+_**NOTE:**_ The cool-down period should be proportionate to the application start-up time to prevent the auto-scaler from scaling while replicas from previous scale-out operations are still in the startup phase.
 
 
 ### 2. Flapping Protection
@@ -224,6 +229,10 @@ When you start the auto-scaler, it dumps its effective configuration in file `et
 ## Graph
 You can run [graph.py](graph.py) in a separate terminal to plot a graph to see how metrics behave with scaling activities.
 ![graph](assets/graph.png)
+
+## Notes
+- Avoid setting the `target_avg_cpu_utilization_for_scale_out` too high if your application takes a long time to start, as in this case the CPU is already high and might increase even further. Your users might notice some slowness until new replicas come live.
+- The cool-down period `cool_down_time_seconds` should be proportionate to the application start-up time to prevent the auto-scaler from scaling while replicas from previous scale-out operations are still in the startup phase.
 
 ## To Do
 - Add a user configuration validator to verify the data-type of input configuration. However, code is designed in a way to adopt the best scenario in case the user provides the wrong input configuration, but it is good to have a configuration validator and have it run before actual logic starts.
