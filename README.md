@@ -59,7 +59,7 @@ You can define custom configuration values and start the auto-scaler.
 
 ### 1. Configurations
 You can fine-tune autoscale by providing a configuration that suits your requirements. If the user does not provide any configuration, then it uses the system default values.
-modules/settings.py evaluates user-given configuration and system defaults and generates effective configuration values.
+`modules/settings.py` evaluates user-given configuration and system defaults and generates effective configuration values.
 
 #### 1.1. Effective Configurations Values
 Autoscaler uses `modules/settings.py` to evaluate user-given configuration and system defaults to generate effective configuration values.
@@ -68,10 +68,10 @@ Autoscaler uses these configurations to generate effective configurations:
 - [System configuration](etc/system_settings.cfg)
 
 #### 1.2. User Configuration
-All [user configurations](etc/user_settings.cfg) are defined in `modules/user_settings.py`. If the user fails to provide any parameters in this file, it uses the system [default](etc/system_settings.cfg) settings.
+All [user configurations](etc/user_settings.cfg) are defined in `etc/user_settings.cfg`. If the user fails to provide any parameters in this file, it uses the system [default](etc/system_settings.cfg) settings.
 
 #### 1.3. System Configuration
-All [system default configurations](etc/system_settings.cfg) are defined in `modules/system_settings.py`.
+All [system default configurations](etc/system_settings.cfg) are defined in `etc/system_settings.cfg`.
 
 #### 1.4. Important Configuration Settings
 There are no required configurations. If the user does not provide any value to the configuration settings, it will inherit system defaults. To override the system default, set these settings in the [user configuration file](etc/user_settings.cfg).
