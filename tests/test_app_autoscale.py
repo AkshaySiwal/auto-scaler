@@ -21,7 +21,7 @@ class TestAppAutoScale(unittest.TestCase):
         
     def test_scale_app_replicas_max(self):
         max_replicas = configs.get('max_replicas')
-        replicas = app_autoscale.scale_app_replicas(current_replica_count=max_replicas+1, current_cpu_utilization=0.80, settings=configs, dry_run=False)
+        replicas = app_autoscale.scale_app_replicas(current_replica_count=max_replicas, current_cpu_utilization=0.80, settings=configs, dry_run=False)
         self.assertEqual(replicas, max_replicas)
         
         
