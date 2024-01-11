@@ -138,7 +138,7 @@ In the table below at T0, when usage is at 56%, a scale-out action is triggered,
 - Scaling in and out using different metrics
 
 #### How Auto-Scaler Avoids Flapping 
-To avoid flapping when scaling-in by more than one instance, autoscale may scale by less than the number of desired replicas.
+To avoid flapping when scaling-in by more than one instance, autoscale may scale-in may result more than the desired replicas.
 
 For example, the following rules can cause flapping:
 
@@ -184,18 +184,18 @@ http://192.168.58.2:8123/app/replicas returned 204, Scaled to replicas: 12
 Next check will be after 1 seconds.
 ```
 
-### 3. Min-Max Limits to Control your Budget
-Scaling limits represent the minimum and maximum replica sizes that you want for your application. You set limits separately for the minimum and maximum size.
+### 3. Min-Max Repplica Limits to Control your Budget
+Scaling limits represent the minimum and maximum replica sizes that you want for your application. You set limits separately for the minimum and maximum size. (These limits are separate from metric limits.)
 
 The application's desired capacity can be resized to a number that's within the range of your minimum and maximum size limits. The desired capacity must be equal to or greater than the minimum group size and equal to or less than the maximum group size.
 
 #### 3.1. Minimum Capacity
-Represents the minimum replica size. Auto-scaler cannot decrease the application's desired capacity lower than the minimum capacity. Check `max_replicas` to cutomize it.
-If the user does not provide any value for `max_replicas` auto-sclaer will inharite the system default `1000`.
+Represents the minimum replica size. Auto-scaler cannot decrease the application's desired capacity lower than the minimum capacity. Check `min_replicas` to cutomize it.
+If the user does not provide any value for `min_replicas` auto-sclaer will inharite the system default `0`.
 
 #### 3.2. Maximum Capacity
-Represents the maximum replica size. Auto-scaler cannot increase the application's desired capacity higher than the maximum capacity. Check `min_replicas` to cutomize it.
-If the user does not provide any value for `min_replicas` Auto-sclaer will inharite the system default `0`.
+Represents the maximum replica size. Auto-scaler cannot increase the application's desired capacity higher than the maximum capacity. Check `max_replicas` to cutomize it.
+If the user does not provide any value for `max_replicas` Auto-sclaer will inharite the system default `1000`.
 
 ### 4. Auto-Retries on API Failures
 Auto-scaler is configured to retry multiple times (can be configured with settings; default is `3`) on failure.
