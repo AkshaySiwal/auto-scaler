@@ -184,7 +184,7 @@ http://192.168.58.2:8123/app/replicas returned 204, Scaled to replicas: 12
 Next check will be after 1 seconds.
 ```
 
-### 3. Min-Max Repplica Limits to Control your Budget
+### 3. Min-Max Replica Limits to Control your Budget
 Scaling limits represent the minimum and maximum replica sizes that you want for your application. You set limits separately for the minimum and maximum size. (These limits are separate from metric limits.)
 
 The application's desired capacity can be resized to a number that's within the range of your minimum and maximum size limits. The desired capacity must be equal to or greater than the minimum group size and equal to or less than the maximum group size.
